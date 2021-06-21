@@ -1998,6 +1998,9 @@ bool _dyld_is_memory_immutable(const void* addr, size_t length)
 }
 
 
+
+// objc 的源代码中， void _objc_init(void) 有调用
+
 void _dyld_objc_notify_register(_dyld_objc_notify_mapped    mapped,
                                 _dyld_objc_notify_init      init,
                                 _dyld_objc_notify_unmapped  unmapped)

@@ -4729,10 +4729,19 @@ void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_in
 		ImageLoader* image = *it;
 		if ( (image->getState() == dyld_image_state_initialized) && image->notifyObjC() ) {
 			dyld3::ScopedTimer timer(DBG_DYLD_TIMING_OBJC_INIT, (uint64_t)image->machHeader(), 0, 0);
-			(*)(image->getRealPath(), image->machHeader());
+			(*sNotifyObjCUnmapped)(image->getRealPath(), image->machHeader());
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
 
 bool sharedCacheUUID(uuid_t uuid)
 {

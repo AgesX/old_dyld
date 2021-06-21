@@ -2176,13 +2176,29 @@ bool _dyld_is_memory_immutable(const void* addr, size_t length)
 }
 
 
+
+
+
+
+
 // dyld 注册 init
+
+// notify, 回调
+
 void _dyld_objc_notify_register(_dyld_objc_notify_mapped    mapped,
                                 _dyld_objc_notify_init      init,
                                 _dyld_objc_notify_unmapped  unmapped)
 {
 	dyld::registerObjCNotifiers(mapped, init, unmapped);
 }
+
+
+
+
+
+
+
+
 
 
 bool _dyld_get_shared_cache_uuid(uuid_t uuid)
