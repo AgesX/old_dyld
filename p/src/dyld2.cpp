@@ -959,6 +959,7 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 				// 头部信息的处理
 				
 				info.imageLoadAddress = image->machHeader();
+				// 加载 uuid
 				addNonSharedCacheImageUUID(info);
 			}
 		}
@@ -990,12 +991,31 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 		uint64_t timeInObjC = t1-t0;
 		uint64_t emptyTime = (t2-t1)*100;
 		if ( (timeInObjC > emptyTime) && (timingInfo != NULL) ) {
+			// LG 的说，这是时间
+			
+			// 加时间
 			timingInfo->addTime(image->getShortName(), timeInObjC);
 		}
 	}
 	
 	
-    // mach message csdlc about dynamically unloaded images
+	
+	
+	
+    
+	// mach message csdlc about dynamically unloaded images
+	
+	
+	
+	
+	// unloaded ，非重点
+	
+	
+	
+	// 没有加载进去，进行一些其他的处理
+	
+	
+	
 	if ( image->addFuncNotified() && (state == dyld_image_state_terminated) ) {
 		notifyKernel(*image, false);
 		const struct mach_header* loadAddress[] = { image->machHeader() };
@@ -1003,6 +1023,22 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 		notifyMonitoringDyld(true, 1, loadAddress, loadPath);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //
@@ -4668,7 +4704,16 @@ void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_in
 {
 	// record functions to call
 	sNotifyObjCMapped	= mapped;
+	
+	
+	
+	
+	// 等价
 	sNotifyObjCInit		= init;
+	
+	
+	
+	
 	sNotifyObjCUnmapped = unmapped;
 
 	// call 'mapped' function with all images mapped so far
