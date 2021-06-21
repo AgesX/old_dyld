@@ -134,6 +134,20 @@ static uintptr_t pageAlign(uintptr_t value)
 }
 #endif
 
+
+
+
+
+
+
+
+
+
+// 找出加载命令
+
+
+
+
 // determine if this mach-o file has classic or compressed LINKEDIT and number of segments it has
 void ImageLoaderMachO::sniffLoadCommands(const macho_header* mh, const char* path, bool inCache, bool* compressed,
 											unsigned int* segCount, unsigned int* libCount, const LinkContext& context,
@@ -564,6 +578,23 @@ void ImageLoaderMachO::sniffLoadCommands(const macho_header* mh, const char* pat
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // create image for main executable
 ImageLoader* ImageLoaderMachO::instantiateMainExecutable(const macho_header* mh, uintptr_t slide, const char* path, const LinkContext& context)
 {
@@ -572,8 +603,17 @@ ImageLoader* ImageLoaderMachO::instantiateMainExecutable(const macho_header* mh,
 	bool compressed;
 	unsigned int segCount;
 	unsigned int libCount;
+	
+	
+	
 	const linkedit_data_command* codeSigCmd;
 	const encryption_info_command* encryptCmd;
+	
+	// sniff， 吸气， 发觉
+	
+	
+	
+	
 	sniffLoadCommands(mh, path, false, &compressed, &segCount, &libCount, context, &codeSigCmd, &encryptCmd);
 	// instantiate concrete class based on content of load commands
 	if ( compressed ) 
@@ -585,6 +625,15 @@ ImageLoader* ImageLoaderMachO::instantiateMainExecutable(const macho_header* mh,
 		throw "missing LC_DYLD_INFO load command";
 #endif
 }
+
+
+
+
+
+
+
+
+
 
 
 // create image by mapping in a mach-o file

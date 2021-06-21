@@ -2984,10 +2984,64 @@ bool isCompatibleMachO(const uint8_t* firstPage, const char* path)
 
 // The kernel maps in main executable before dyld gets control.  We need to 
 // make an ImageLoader* for the already mapped in main executable.
+
+
+
+
+
+// 初始化，加到主程序
+
+
+
+
+
+
+
+// dyld 做的事情:
+
+
+// 1, 环境变量的配置
+
+
+// 2，共享缓存
+// 系统的动态库， UIKit 、 Core Foundation 等
+
+
+// load shared cache
+
+
+
+// 3，主程序的初始化
+// 相应的实例化
+
+
+// 4，添加/加载，动态库
+
+
+// 5， 链接
+// link 主程序
+
+
+// 6，链接
+// link 动态库
+
+
+
+// 7， main 函数
+
+
+
+
+
+
+
 static ImageLoaderMachO* instantiateFromLoadedImage(const macho_header* mh, uintptr_t slide, const char* path)
 {
 	// try mach-o loader
 	if ( isCompatibleMachO((const uint8_t*)mh, path) ) {
+		
+		// 通过镜像加载
+		
 		ImageLoader* image = ImageLoaderMachO::instantiateMainExecutable(mh, slide, path, gLinkContext);
 		addImage(image);
 		return (ImageLoaderMachO*)image;
@@ -2995,6 +3049,15 @@ static ImageLoaderMachO* instantiateFromLoadedImage(const macho_header* mh, uint
 	
 	throw "main executable not a known format";
 }
+
+
+
+
+
+
+
+
+
 
 #if SUPPORT_ACCELERATE_TABLES
 static bool dylibsCanOverrideCache()
@@ -6323,6 +6386,9 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 	else
 		sExecShortName = sExecPath;
 
+	
+	
+	// envp, 环境变量， environment
     configureProcessRestrictions(mainExecutableMH, envp);
 
 	// Check if we should force dyld3.  Note we have to do this outside of the regular env parsing due to AMFI
@@ -6411,6 +6477,8 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 	getHostInfo(mainExecutableMH, mainExecutableSlide);
 
 	// load shared cache
+	
+	// 加载共享缓存
 	checkSharedRegionDisable((dyld3::MachOLoaded*)mainExecutableMH, mainExecutableSlide);
 	if ( gLinkContext.sharedRegionMode != ImageLoader::kDontUseSharedRegion ) {
 #if TARGET_OS_SIMULATOR
@@ -6579,7 +6647,23 @@ reloadAllImages:
 
 
 		CRSetCrashLogMessage(sLoadingCrashMessage);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// instantiate ImageLoader for main executable
+		
+		// 第二个关键， sMainExecutable ，
+		// 在这里被赋值的
+		
 		sMainExecutable = instantiateFromLoadedImage(mainExecutableMH, mainExecutableSlide, sExecPath);
 		gLinkContext.mainExecutable = sMainExecutable;
 		gLinkContext.mainExecutableCodeSigned = hasCodeSignatureLoadCommand(mainExecutableMH);
@@ -6662,6 +6746,10 @@ reloadAllImages:
 			sMainExecutable->rebase(gLinkContext, -mainExecutableSlide);
 		}
 #endif
+		
+		
+		// 链接， 1
+		
 		link(sMainExecutable, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);
 		sMainExecutable->setNeverUnloadRecursive();
 		if ( sMainExecutable->forceFlat() ) {
@@ -6675,6 +6763,9 @@ reloadAllImages:
 		if ( sInsertedDylibCount > 0 ) {
 			for(unsigned int i=0; i < sInsertedDylibCount; ++i) {
 				ImageLoader* image = sAllImages[i+1];
+				
+				// 链接， 2
+				
 				link(image, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);
 				image->setNeverUnloadRecursive();
 			}
@@ -6797,8 +6888,13 @@ reloadAllImages:
 				// main executable uses LC_UNIXTHREAD, dyld needs to let "start" in program set up for main()
 				
 				
+				
+				
 				// 看 result , 怎么产生的
 				
+				
+				
+				// 接下来，去找主程序 ， sMainExecutable
 				
 				
 				
