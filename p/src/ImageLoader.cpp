@@ -1689,11 +1689,14 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 			
 			
 			
-			// 两句重点， 1
-			
+			// 伪，两句重点， 伪 1
+			// notify 是为了回调
 			context.notifySingle(dyld_image_state_dependents_initialized, this, &timingInfo);
 			
 			// initialize this image
+
+			// 重点， 1
+			
 			bool hasInitializers = this->doInitialization(context);
 
 			// let anyone know we finished initializing this image
@@ -1704,7 +1707,7 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 			
 			
 			
-			// 两句重点， 2
+			// 伪，两句重点， 伪 2
 			
 			context.notifySingle(dyld_image_state_initialized, this, NULL);
 			

@@ -2309,9 +2309,14 @@ void ImageLoaderMachO::doImageInit(const LinkContext& context)
 					func = (Initializer)__builtin_ptrauth_sign_unauthenticated((void*)func, ptrauth_key_asia, 0);
 #endif
 					// <rdar://problem/8543820&9228031> verify initializers are in image
+
+					// 报错
 					if ( ! this->containsAddress(stripPointer((void*)func)) ) {
 						dyld::throwf("initializer function %p not in mapped image for %s\n", func, this->getPath());
 					}
+
+
+					// 报错
 					if ( ! dyld::gProcessInfo->libSystemInitialized ) {
 						// <rdar://problem/17973316> libSystem initializer must run first
 						dyld::throwf("-init function in image (%s) that does not link with libSystem.dylib\n", this->getPath());
@@ -2468,11 +2473,21 @@ void ImageLoaderMachO::doGetDOFSections(const LinkContext& context, std::vector<
 }	
 
 
+
+
+
+
+
+
+// 做，初始化
+
 bool ImageLoaderMachO::doInitialization(const LinkContext& context)
 {
 	CRSetCrashLogMessage2(this->getPath());
 
 	// mach-o has -init and static initializers
+
+	// 做，初始化
 	doImageInit(context);
 	doModInitFunctions(context);
 	
@@ -2480,6 +2495,14 @@ bool ImageLoaderMachO::doInitialization(const LinkContext& context)
 	
 	return (fHasDashInit || fHasInitializers);
 }
+
+
+
+
+
+
+
+
 
 bool ImageLoaderMachO::needsInitialization()
 {
