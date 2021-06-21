@@ -6188,6 +6188,12 @@ static ClosureMode getPlatformDefaultClosureMode() {
 //
 // Returns address of main() in target program which __dyld_start jumps to
 //
+
+
+
+// 2， 第 2 步
+
+
 uintptr_t
 _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide, 
 		int argc, const char* argv[], const char* envp[], const char* apple[], 
@@ -6789,6 +6795,13 @@ reloadAllImages:
 			}
 			else {
 				// main executable uses LC_UNIXTHREAD, dyld needs to let "start" in program set up for main()
+				
+				
+				// 看 result , 怎么产生的
+				
+				
+				
+				
 				result = (uintptr_t)sMainExecutable->getEntryFromLC_UNIXTHREAD();
 				*startGlue = 0;
 			}
@@ -6826,6 +6839,21 @@ reloadAllImages:
 	
 	return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 } // namespace

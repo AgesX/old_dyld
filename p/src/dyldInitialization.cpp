@@ -51,6 +51,11 @@ const dyld::SyscallHelpers* gSyscallHelpers = NULL;
 //
 //
 
+
+
+//  dyldbootstrap, 开始的地方
+
+
 namespace dyldbootstrap {
 
 
@@ -113,6 +118,17 @@ static void rebaseDyld(const dyld3::MachOLoaded* dyldMH)
 //  This is code to bootstrap dyld.  This work in normally done for a program by dyld and crt.
 //  In dyld we have to do this manually.
 //
+
+
+
+
+
+
+
+
+// 1， 第一步
+
+
 uintptr_t start(const dyld3::MachOLoaded* appsMachHeader, int argc, const char* argv[],
 				const dyld3::MachOLoaded* dyldsMachHeader, uintptr_t* startGlue)
 {
@@ -144,6 +160,9 @@ uintptr_t start(const dyld3::MachOLoaded* appsMachHeader, int argc, const char* 
 	uintptr_t appsSlide = appsMachHeader->getSlide();
 	return dyld::_main((macho_header*)appsMachHeader, appsSlide, argc, argv, envp, apple, startGlue);
 }
+
+
+
 
 
 #if TARGET_OS_SIMULATOR
