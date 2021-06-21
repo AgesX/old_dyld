@@ -3015,7 +3015,7 @@ bool isCompatibleMachO(const uint8_t* firstPage, const char* path)
 // 相应的实例化
 
 
-// 4，添加/加载，动态库
+// 4，添加/加入，动态库
 
 
 // 5， 链接
@@ -3023,7 +3023,7 @@ bool isCompatibleMachO(const uint8_t* firstPage, const char* path)
 
 
 // 6，链接
-// link 动态库
+// link 动态库， 链接镜像文件
 
 
 
@@ -6257,6 +6257,8 @@ static ClosureMode getPlatformDefaultClosureMode() {
 // 2， 第 2 步
 
 
+
+// 程序的加载流程， dyld
 uintptr_t
 _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide, 
 		int argc, const char* argv[], const char* envp[], const char* apple[], 
@@ -6478,7 +6480,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 
 	// load shared cache
 	
-	// 加载共享缓存
+	// 2， 加载共享缓存
 	checkSharedRegionDisable((dyld3::MachOLoaded*)mainExecutableMH, mainExecutableSlide);
 	if ( gLinkContext.sharedRegionMode != ImageLoader::kDontUseSharedRegion ) {
 #if TARGET_OS_SIMULATOR
@@ -6654,7 +6656,8 @@ reloadAllImages:
 		
 		
 		
-		
+		// 3，主程序的初始化
+		// 相应的实例化
 		
 		
 		
@@ -6729,6 +6732,9 @@ reloadAllImages:
 		}
 
 		// load any inserted libraries
+		
+		// 4，添加/加入，动态库
+		
 		if	( sEnv.DYLD_INSERT_LIBRARIES != NULL ) {
 			for (const char* const* lib = sEnv.DYLD_INSERT_LIBRARIES; *lib != NULL; ++lib) 
 				loadInsertedDylib(*lib);
@@ -6750,6 +6756,9 @@ reloadAllImages:
 		
 		// 链接， 1
 		
+		// 5， 链接
+		// link 主程序
+		
 		link(sMainExecutable, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);
 		sMainExecutable->setNeverUnloadRecursive();
 		if ( sMainExecutable->forceFlat() ) {
@@ -6765,7 +6774,8 @@ reloadAllImages:
 				ImageLoader* image = sAllImages[i+1];
 				
 				// 链接， 2
-				
+				// 6，链接
+				// link 动态库， 链接镜像文件
 				link(image, sEnv.DYLD_BIND_AT_LAUNCH, true, ImageLoader::RPathChain(NULL, NULL), -1);
 				image->setNeverUnloadRecursive();
 			}
@@ -6855,6 +6865,9 @@ reloadAllImages:
 			initializeMainExecutable(); 
 	#else
 		// run all initializers
+		
+		
+		// 7， main 函数
 		initializeMainExecutable(); 
 	#endif
 
@@ -6895,6 +6908,9 @@ reloadAllImages:
 				
 				
 				// 接下来，去找主程序 ， sMainExecutable
+				
+				// 自下而上
+				
 				
 				
 				
