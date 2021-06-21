@@ -3,7 +3,8 @@
  * Copyright (c) 2004-2009 Apple Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
- * 
+ *
+ 
  * This file contains Original Code and/or Modifications of Original Code
  * as defined in and that are subject to the Apple Public Source License
  * Version 2.0 (the 'License'). You may not use this file except in
@@ -1275,7 +1276,7 @@ bool _dyld_launched_prebound()
 	if ( dyld::gLogAPIs )
 		dyld::log("%s()\n", __func__);
 		
-	// ¥¥¥Êif we deprecate prebinding, we may want to consider always returning true or false here
+	// ï¿½ï¿½ï¿½ï¿½if we deprecate prebinding, we may want to consider always returning true or false here
 	return dyld::mainExecutablePrebound();
 }
 
@@ -2175,7 +2176,7 @@ bool _dyld_is_memory_immutable(const void* addr, size_t length)
 }
 
 
-
+// dyld æ³¨å†Œ init
 void _dyld_objc_notify_register(_dyld_objc_notify_mapped    mapped,
                                 _dyld_objc_notify_init      init,
                                 _dyld_objc_notify_unmapped  unmapped)

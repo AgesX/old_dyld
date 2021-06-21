@@ -4710,7 +4710,7 @@ void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_in
 	
 	// 等价
 	sNotifyObjCInit		= init;
-	
+	// sNotifyObjCInit , 是函数地址
 	
 	
 	
@@ -4729,7 +4729,7 @@ void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_in
 		ImageLoader* image = *it;
 		if ( (image->getState() == dyld_image_state_initialized) && image->notifyObjC() ) {
 			dyld3::ScopedTimer timer(DBG_DYLD_TIMING_OBJC_INIT, (uint64_t)image->machHeader(), 0, 0);
-			(*sNotifyObjCInit)(image->getRealPath(), image->machHeader());
+			(*)(image->getRealPath(), image->machHeader());
 		}
 	}
 }
