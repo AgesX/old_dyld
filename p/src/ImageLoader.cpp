@@ -577,10 +577,23 @@ bool ImageLoader::decrementDlopenReferenceCount()
 }
 
 
+
+
+
+
+
+
+
+
+
 // <rdar://problem/14412057> upward dylib initializers can be run too soon
 // To handle dangling dylibs which are upward linked but not downward, all upward linked dylibs
 // have their initialization postponed until after the recursion through downward dylibs
 // has completed.
+
+
+// 初始化 3
+
 void ImageLoader::processInitializers(const LinkContext& context, mach_port_t thisThread,
 									 InitializerTimingList& timingInfo, ImageLoader::UninitedUpwards& images)
 {
@@ -591,12 +604,33 @@ void ImageLoader::processInitializers(const LinkContext& context, mach_port_t th
 	// Calling recursive init on all images in images list, building a new list of
 	// uninitialized upward dependencies.
 	for (uintptr_t i=0; i < images.count; ++i) {
+		
+		// 重点，递归初始化
+		
 		images.imagesAndPaths[i].first->recursiveInitialization(context, thisThread, images.imagesAndPaths[i].second, timingInfo, ups);
+		
+		
+		// 方法这么搜， recursiveInitialization(const
 	}
 	// If any upward dependencies remain, init them.
 	if ( ups.count > 0 )
+		// 重点 2
 		processInitializers(context, thisThread, timingInfo, ups);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -618,6 +652,8 @@ void ImageLoader::runInitializers(const LinkContext& context, InitializerTimingL
 	// 这句是重点
 	
 	processInitializers(context, thisThread, timingInfo, up);
+	
+	// 这样搜索，   processInitializers(const
 	
 	
 	
@@ -1585,6 +1621,20 @@ void ImageLoader::InitializerTimingList::addTime(const char* name, uint64_t time
 	++count;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_t this_thread, const char* pathToInitialize,
 										  InitializerTimingList& timingInfo, UninitedUpwards& uninitUps)
 {
@@ -1644,6 +1694,19 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 	
 	recursiveSpinUnLock();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 static void printTime(const char* msg, uint64_t partTime, uint64_t totalTime)
