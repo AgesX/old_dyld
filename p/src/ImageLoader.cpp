@@ -1635,6 +1635,7 @@ void ImageLoader::InitializerTimingList::addTime(const char* name, uint64_t time
 
 
 
+// 递归实例化
 void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_t this_thread, const char* pathToInitialize,
 										  InitializerTimingList& timingInfo, UninitedUpwards& uninitUps)
 {
@@ -1656,10 +1657,24 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 						uninitUps.count++;
 					}
 					else if ( dependentImage->fDepth >= fDepth ) {
+						
+						
+						
+						
+						
+						// 进行递归，是因为动态库，很可能会有依赖
+						
+						
+						
 						dependentImage->recursiveInitialization(context, this_thread, libPath(i), timingInfo, uninitUps);
 					}
                 }
 			}
+			
+			
+			
+			
+			
 			
 			// record termination order
 			if ( this->needsTermination() )
@@ -1669,6 +1684,13 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 			uint64_t t1 = mach_absolute_time();
 			fState = dyld_image_state_dependents_initialized;
 			oldState = fState;
+			
+			
+			
+			
+			
+			// 两句重点， 1
+			
 			context.notifySingle(dyld_image_state_dependents_initialized, this, &timingInfo);
 			
 			// initialize this image
@@ -1677,7 +1699,23 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 			// let anyone know we finished initializing this image
 			fState = dyld_image_state_initialized;
 			oldState = fState;
+			
+			
+			
+			
+			
+			// 两句重点， 2
+			
 			context.notifySingle(dyld_image_state_initialized, this, NULL);
+			
+			
+			
+			//	static void notifySingle(dyld_image_states state, const ImageLoader* image, ImageLoader::InitializerTimingList* timingInfo)
+			
+			
+			
+			
+			
 			
 			if ( hasInitializers ) {
 				uint64_t t2 = mach_absolute_time();

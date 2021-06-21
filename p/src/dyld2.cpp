@@ -906,10 +906,25 @@ void notifyKernel(const ImageLoader& image, bool loading) {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 static void notifySingle(dyld_image_states state, const ImageLoader* image, ImageLoader::InitializerTimingList* timingInfo)
 {
 	//dyld::log("notifySingle(state=%d, image=%s)\n", state, image->getPath());
 	std::vector<dyld_image_state_change_handler>* handlers = stateToHandlers(state, sSingleHandlers);
+	
+	// 条件判断，抛异常
 	if ( handlers != NULL ) {
 		dyld_image_info info;
 		info.imageLoadAddress	= image->machHeader();
@@ -924,20 +939,51 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 				throw str;
 			}
 		}
+		
+		
 	}
+	
+	
+	
+	// 是否被映射进来
 	if ( state == dyld_image_state_mapped ) {
 		// <rdar://problem/7008875> Save load addr + UUID for images from outside the shared cache
+		
+		
 		if ( !image->inSharedCache() ) {
+			
+			
 			dyld_uuid_info info;
 			if ( image->getUUID(info.imageUUID) ) {
+				
+				// 头部信息的处理
+				
 				info.imageLoadAddress = image->machHeader();
 				addNonSharedCacheImageUUID(info);
 			}
 		}
+		
 	}
+	
+	
+	
+	
+	
+	
+	// 判断异常
+	
 	if ( (state == dyld_image_state_dependents_initialized) && (sNotifyObjCInit != NULL) && image->notifyObjC() ) {
+		
+		
+		
 		uint64_t t0 = mach_absolute_time();
 		dyld3::ScopedTimer timer(DBG_DYLD_TIMING_OBJC_INIT, (uint64_t)image->machHeader(), 0, 0);
+		
+		
+		
+		
+		// 这句是重点
+		
 		(*sNotifyObjCInit)(image->getRealPath(), image->machHeader());
 		uint64_t t1 = mach_absolute_time();
 		uint64_t t2 = mach_absolute_time();
@@ -947,6 +993,8 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 			timingInfo->addTime(image->getShortName(), timeInObjC);
 		}
 	}
+	
+	
     // mach message csdlc about dynamically unloaded images
 	if ( image->addFuncNotified() && (state == dyld_image_state_terminated) ) {
 		notifyKernel(*image, false);
