@@ -599,6 +599,11 @@ void ImageLoader::processInitializers(const LinkContext& context, mach_port_t th
 }
 
 
+
+
+
+// 初始化详情
+
 void ImageLoader::runInitializers(const LinkContext& context, InitializerTimingList& timingInfo)
 {
 	uint64_t t1 = mach_absolute_time();
@@ -606,12 +611,34 @@ void ImageLoader::runInitializers(const LinkContext& context, InitializerTimingL
 	ImageLoader::UninitedUpwards up;
 	up.count = 1;
 	up.imagesAndPaths[0] = { this, this->getPath() };
+	
+	
+	
+	
+	// 这句是重点
+	
 	processInitializers(context, thisThread, timingInfo, up);
+	
+	
+	
+	
 	context.notifyBatch(dyld_image_state_initialized, false);
 	mach_port_deallocate(mach_task_self(), thisThread);
 	uint64_t t2 = mach_absolute_time();
 	fgTotalInitTime += (t2 - t1);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void ImageLoader::bindAllLazyPointers(const LinkContext& context, bool recursive)

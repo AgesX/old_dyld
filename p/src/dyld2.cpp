@@ -1555,6 +1555,16 @@ static void runAllStaticTerminators(void* extra)
 	}
 }
 
+
+
+
+
+
+
+
+
+
+// 程序初始化
 void initializeMainExecutable()
 {
 	// record that we've reached this step
@@ -1567,6 +1577,13 @@ void initializeMainExecutable()
 	if ( rootCount > 1 ) {
 		for(size_t i=1; i < rootCount; ++i) {
 			sImageRoots[i]->runInitializers(gLinkContext, initializerTimes[0]);
+			
+			
+			//	void ImageLoader::runInitializers(const LinkContext& context, InitializerTimingList& timingInfo)
+			
+			
+			
+			
 		}
 	}
 	
@@ -1583,6 +1600,17 @@ void initializeMainExecutable()
 	if ( sEnv.DYLD_PRINT_STATISTICS_DETAILS )
 		ImageLoaderMachO::printStatisticsDetails((unsigned int)allImagesCount(), initializerTimes[0]);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 bool mainExecutablePrebound()
 {
