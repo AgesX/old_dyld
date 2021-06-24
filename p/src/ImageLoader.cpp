@@ -1697,6 +1697,11 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 
 			// 重点， 1
 			
+			
+			
+			//	1， CPP 构造函数调用的时机
+			
+			
 			bool hasInitializers = this->doInitialization(context);
 
 			// let anyone know we finished initializing this image

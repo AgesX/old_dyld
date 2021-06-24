@@ -66,6 +66,12 @@
 
 #include <TargetConditionals.h>
 
+
+
+
+
+
+
 	.globl __dyld_start
 
 #if __i386__ && !TARGET_OS_SIMULATOR
@@ -124,6 +130,8 @@ Lapple:	movl	(%ebx),%ecx	# look for NULL ending env[] array
 
 
 
+// 视 main
+
 #if __x86_64__ && !TARGET_OS_SIMULATOR
 	.text
 	.align 2,0x90
@@ -150,6 +158,15 @@ __dyld_start:
 	addq	$8,%rsp 	# remove the mh argument, and debugger end frame marker
 	movq	$0,%rbp		# restore ebp back to zero
 	jmp	*%rax		# jump to the entry point
+
+
+
+
+
+// 这里，看见了 main 函数
+
+
+
 
 	# LC_MAIN case, set up stack for call to main()
 Lnew:	addq	$16,%rsp	# remove local variables

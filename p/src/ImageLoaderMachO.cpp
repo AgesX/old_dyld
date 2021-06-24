@@ -2346,6 +2346,12 @@ static const char* libSystemPath(const ImageLoader::LinkContext& context)
 
 
 
+
+
+
+//	3 ， CPP 构造函数调用的时机
+
+
 void ImageLoaderMachO::doModInitFunctions(const LinkContext& context)
 {
 	if ( fHasInitializers ) {
@@ -2438,6 +2444,21 @@ void ImageLoaderMachO::doModInitFunctions(const LinkContext& context)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void ImageLoaderMachO::doGetDOFSections(const LinkContext& context, std::vector<ImageLoader::DOFInfo>& dofs)
 {
 	if ( fHasDOFSections ) {
@@ -2481,6 +2502,8 @@ void ImageLoaderMachO::doGetDOFSections(const LinkContext& context, std::vector<
 
 // 做，初始化
 
+//	CPP 构造函数调用的时机
+
 bool ImageLoaderMachO::doInitialization(const LinkContext& context)
 {
 	CRSetCrashLogMessage2(this->getPath());
@@ -2489,6 +2512,10 @@ bool ImageLoaderMachO::doInitialization(const LinkContext& context)
 
 	// 做，初始化
 	doImageInit(context);
+	
+	
+	
+	//	2， CPP 构造函数调用的时机
 	doModInitFunctions(context);
 	
 	CRSetCrashLogMessage2(NULL);
