@@ -2181,6 +2181,9 @@ bool _dyld_is_memory_immutable(const void* addr, size_t length)
 
 
 
+
+
+
 // dyld 注册 init
 
 // notify, 回调
@@ -2195,6 +2198,8 @@ void _dyld_objc_notify_register(_dyld_objc_notify_mapped    mapped,
 
 
 
+// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
+//	static _dyld_objc_notify_init		sNotifyObjCInit;
 
 
 

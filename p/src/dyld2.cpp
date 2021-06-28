@@ -312,7 +312,16 @@ static bool							sLogToFile = false;
 #endif
 static char							sLoadingCrashMessage[1024] = "dyld: launch, loading dependent libraries";
 static _dyld_objc_notify_mapped		sNotifyObjCMapped;
+
+
+
+
+// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
 static _dyld_objc_notify_init		sNotifyObjCInit;
+
+
+
+
 static _dyld_objc_notify_unmapped	sNotifyObjCUnmapped;
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED && !TARGET_OS_SIMULATOR
@@ -983,7 +992,11 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 		
 		
 		
+		
+		
 		// 这句是重点
+		
+		// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
 		
 		(*sNotifyObjCInit)(image->getRealPath(), image->machHeader());
 		uint64_t t1 = mach_absolute_time();

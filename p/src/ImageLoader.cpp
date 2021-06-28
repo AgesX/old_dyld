@@ -1691,6 +1691,11 @@ void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_
 			
 			// 伪，两句重点， 伪 1
 			// notify 是为了回调
+			
+			
+			// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
+			
+			
 			context.notifySingle(dyld_image_state_dependents_initialized, this, &timingInfo);
 			
 			// initialize this image
