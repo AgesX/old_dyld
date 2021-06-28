@@ -1101,6 +1101,22 @@ static int imageSorter(const void* l, const void* r)
 	return left->compare(right);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 static void notifyBatchPartial(dyld_image_states state, bool orLater, dyld_image_state_change_handler onlyHandler, bool preflightOnly, bool onlyObjCMappedNotification)
 {
 	std::vector<dyld_image_state_change_handler>* handlers = stateToHandlers(state, sBatchHandlers);
@@ -1254,12 +1270,28 @@ static void notifyBatchPartial(dyld_image_states state, bool orLater, dyld_image
 				if ( objcImageCount != 0 ) {
 					dyld3::ScopedTimer timer(DBG_DYLD_TIMING_OBJC_MAP, 0, 0, 0);
 					uint64_t t0 = mach_absolute_time();
+					
+					
+					
+					
+					
+					// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
+					
+					
+					//	sNotifyObjCMapped， 			这里调用 map_images
+					
 					(*sNotifyObjCMapped)(objcImageCount, paths, mhs);
 					uint64_t t1 = mach_absolute_time();
 					ImageLoader::fgTotalObjCSetupTime += (t1-t0);
 				}
 			}
 		}
+		
+		
+		
+		
+		
+		
         allImagesUnlock();
         if ( dontLoadReason != NULL )
             throw dontLoadReason;
@@ -1273,7 +1305,21 @@ static void notifyBatchPartial(dyld_image_states state, bool orLater, dyld_image
 			notifyMonitoringDyld(false, imageCount, loadAddresses, loadPaths);
 		}
 	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
 
 static void notifyBatch(dyld_image_states state, bool preflightOnly)
 {
@@ -4717,6 +4763,10 @@ void registerImageStateBatchChangeHandler(dyld_image_states state, dyld_image_st
 
 void registerObjCNotifiers(_dyld_objc_notify_mapped mapped, _dyld_objc_notify_init init, _dyld_objc_notify_unmapped unmapped)
 {
+	
+	// 注册之后，记录
+	
+	
 	// record functions to call
 	sNotifyObjCMapped	= mapped;
 	
