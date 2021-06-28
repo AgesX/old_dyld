@@ -998,6 +998,8 @@ static void notifySingle(dyld_image_states state, const ImageLoader* image, Imag
 		
 		// _dyld_objc_notify_register(&map_images, load_images, unmap_image);
 		
+		
+		//	这里调用 load_images
 		(*sNotifyObjCInit)(image->getRealPath(), image->machHeader());
 		uint64_t t1 = mach_absolute_time();
 		uint64_t t2 = mach_absolute_time();
