@@ -19,8 +19,32 @@
 
 
 
+
+
+
+ro,   里面有 method list
+
+
+没有缓存，查找方法，通过二分查找
+
+( 此时是， sel  排序 )
+
 <hr>
 
+
+还有
+
+protocol list,
+
+
+ivar list 
+
+<hr>
+
+
+<hr>
+
+<hr>
 
 
 ro, 干净内存
