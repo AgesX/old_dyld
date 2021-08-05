@@ -18,6 +18,19 @@
     NSLog(@"%s",__func__);
 }
 
+
+
+
+
+// 签名信息，的获取
+
+
+
+
+// 这个方法，配合下面的方法 （ 调用转发 ）
+// 一起使用
+
+
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector{
 
     // 方法签名
@@ -39,8 +52,8 @@
 - (void)forwardInvocation:(NSInvocation *)anInvocation{
     // pop alter
     NSLog(@"hahaha   _  _  _ 来了 : %s                -%@",__func__,NSStringFromSelector(anInvocation.selector));
- //   anInvocation.selector = @selector(runMethod:);
- //   [anInvocation invoke];
+    anInvocation.selector = @selector(runMethod:);
+    [anInvocation invoke];
 }
 
  
