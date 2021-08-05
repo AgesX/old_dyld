@@ -14,51 +14,28 @@ int main(int argc, char * argv[]) {
         // Setup code that might create autoreleased objects goes here.
         appDelegateClassName = NSStringFromClass([AppDelegate class]);
         
-        //
         
-        //
-        
-        
-        //
-        
-        
-        // tmpObj, 这个临时变量，默认 strong 修饰
-        
-        //
-        
-        // tmpObj，会添加到这个缓存池中， autoreleasepool
-        
-        
-        
-        
-        id tmpObj = [[NSObject alloc] init];
-        
-        
-        
-        //
         
         //
         
         
         //
         
+        
+        //  这样写，创建之后，马上释放了
+        
+        
+        
+        //  因为其，引用计数，为 0
+        
+        
+        
+        
+        id __weak obj = [[NSObject alloc] init];
         //
         
-        // tmpObj, 引用计数为 1
-        // tmpObj, 延缓了 obj 的生命周期
         
         
-        
-        id __weak obj = tmpObj;
-        // 相当于，   对 obj 有一个 retain 操作
-        // obj 的引用计数 + 1
-        
-        
-        
-        //
-        
-        
-        //  流程：    看汇编，找到入口函数，去源码里面翻
         
         
         
