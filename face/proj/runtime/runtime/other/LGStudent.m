@@ -35,14 +35,19 @@ void lg_dynamicMethodIMP(){
     // 方法 -- 动态化
     // lg_run  --
     if (sel==@selector(run)) {
-        class_addMethod([self class], sel, (IMP)lg_dynamicMethodIMP, "v@:");
+        class_addMethod([self class], sel, (IMP)lg_dynamicMethodIMP, "V@:");
         
         
         
         
-        //  v@:
-        //  3 个符号，代表，3 个参数
-        //  v , void
+        
+        
+        //  V@:
+        //  3 个符号，代表 1 个返回， 2 个参数
+        
+        
+        
+        //  V , void
         //  @ , id   , target
         //  : , selector, _cmd
         
