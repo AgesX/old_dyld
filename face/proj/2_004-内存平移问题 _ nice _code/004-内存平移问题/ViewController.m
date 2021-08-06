@@ -95,7 +95,7 @@ struct kc_struct{
     
     
     
-    NSLog(@"person: %p ----->>>>> kc:  %p",&person,kc);
+    NSLog(@"person: %p ----->>>>> ha ha:  %p",&person,kc);
     // 隐藏参数 会压入栈帧
     void *sp  = (void *)&self;
     void *end = (void *)&person;
@@ -108,15 +108,15 @@ struct kc_struct{
             
             // _cmd,   特殊情况， 字符串， 非对象类型
             
-            NSLog(@"%p : %s",address, *(char **)address);
+            NSLog(@"_cmd  %p : %s\n~~~",address, *(char **)address);
         }else{
             
             // ( void * ), 万能指针，对象类型
             
-            NSLog(@"%p : %@",address, *(void **)address);
+            NSLog(@"   %p : %@\n~",address, *(void **)address);
         }
     }
-    
+    NSLog(@"\n\n____\n\n");
     
     // LGPerson  - 0x7ffeea0c50f8
     [(__bridge id)kc saySomething]; // 1 2  - <ViewController: 0x7f7f7ec09490>
