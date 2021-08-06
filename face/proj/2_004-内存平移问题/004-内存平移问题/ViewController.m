@@ -104,8 +104,15 @@ struct kc_struct{
     for (long i = 0; i<count; i++) {
         void *address = sp - 0x8 * i;
         if ( i == 1) {
+            
+            
+            // _cmd,   特殊情况， 字符串， 非对象类型
+            
             NSLog(@"%p : %s",address, *(char **)address);
         }else{
+            
+            // ( void * ), 万能指针，对象类型
+            
             NSLog(@"%p : %@",address, *(void **)address);
         }
     }
