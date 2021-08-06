@@ -15,13 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@property (nonatomic, copy) NSString *kc_name;
+@property (nonatomic, copy) NSString *name;
 
 
 
 
 
-@property (nonatomic, copy) NSString *kc_hobby;  // 12
+@property (nonatomic, copy) NSString *hobby;
 - (void)saySomething;
 @end
 

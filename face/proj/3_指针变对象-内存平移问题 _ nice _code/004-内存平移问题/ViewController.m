@@ -86,7 +86,22 @@ struct kc_struct{
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // ViewController 当前的类
+    /*
+    
+    //   为什么
+    //  (id)class_getSuperclass(objc_getClass("LGTeacher"))
+    //  返回的是， ViewController
+     
+     
+    
+    
+    // ViewController ， 因为 super 是当前的类
+    
+     
+     
+    */
+    
+    
     // self cmd (id)class_getSuperclass(objc_getClass("LGTeacher")) self cls hahaha person
     
     Class cls = [LGPerson class];
