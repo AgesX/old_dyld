@@ -10,7 +10,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LGPerson : NSObject
-@property (nonatomic, assign) int kc_name;
+
+
+
+
+
+@property (nonatomic, copy) NSString *kc_name;
+
+
+
+
+
 @property (nonatomic, copy) NSString *kc_hobby;  // 12
 - (void)saySomething;
 @end

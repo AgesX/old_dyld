@@ -39,7 +39,10 @@ struct kc_struct{
     Class cls = [LGPerson class];
     void  *kc = &cls;  // 
     LGPerson *person = [LGPerson alloc];
-    NSLog(@"%p - %p",&person,kc);
+    
+    
+    
+    NSLog(@"person: %p ----->>>>> kc:  %p",&person,kc);
     // 隐藏参数 会压入栈帧
     void *sp  = (void *)&self;
     void *end = (void *)&person;
