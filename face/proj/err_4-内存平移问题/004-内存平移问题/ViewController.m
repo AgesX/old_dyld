@@ -34,14 +34,26 @@ struct kc_struct{
     [super viewDidLoad];
     
     // ViewController 当前的类
-    // self cmd (id)class_getSuperclass(objc_getClass("LGTeacher")) self cls kc person
+    // self cmd (id)class_getSuperclass(objc_getClass("LGTeacher"))
+    
+    
+    
+    
+    //  self cls kc person
+    
+    
     
     Class cls = [LGPerson class];
-    void  *kc = &cls;  // 
+    void  *haha = &cls;
+    //   haha 是指针，指向类
+    //  模拟对象指针的结构
+    
+    
+    
 
     
     // LGPerson  - 0x7ffeea0c50f8
-    [(__bridge id)kc saySomething]; // 1 2  - <ViewController: 0x7f7f7ec09490>
+    [(__bridge id)haha saySomething]; // 1 2  - <ViewController: 0x7f7f7ec09490>
     
    
 }

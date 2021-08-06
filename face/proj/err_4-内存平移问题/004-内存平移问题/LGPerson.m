@@ -14,6 +14,10 @@
     // LGPerson: 0x7ffee8a7c0e8
     // person VS LGPerson (实例化) (isa)
     // kc -> LGPerson (实例化) kc_name
-    NSLog(@"%s - %d",  __func__,   self.kc_name);
+    NSLog(@"111  _ \n \n _    %s - %d",  __func__,   self.kc_name);
 }
 @end
+
+
+
+
