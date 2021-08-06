@@ -61,7 +61,76 @@ struct kc_struct{
     [(__bridge id)haha saySomething]; // 1 2  - <ViewController: 0x7f7f7ec09490>
     
    
+/*
+    
+ 
+ 
+ 
+    函数压栈
+ 
+ 
+ 
+    栈帧的结构：
+ 
+ 
+    
+    ---
+ 
+ 
+    haha ， 万能指针
+ 
+ 
+    Class cls
+ 
+ 
+    (super 结构体)
+ 
+    self ( receiver )
+ 
+    superClass
+ 
+ 
+ 
+    (   方法调用，默认省略的，两个参数  )
+ 
+    _cmd
+ 
+ 
+    self
+    
+ 
+ 
+ 
+ 
+ 
+ */
+    
+    
+    
 }
 
 
+
+
+
+
+
 @end
+
+
+//  haha 指针，指向类
+
+
+
+//  haha 指针， 里面没东西
+
+
+//  haha 只是一个，8 字节的指针
+
+
+
+
+//  haha 指针，查找 name 属性，就是其首地址平移 8 个字节
+
+
+

@@ -68,3 +68,18 @@ struct kc_struct{
 
 
 @end
+
+
+
+//  person （ 对象 ）  的内存结构：
+
+//   isa,  prop ( 属性 )
+
+//   isa , kc_name
+
+
+
+
+
+
+
