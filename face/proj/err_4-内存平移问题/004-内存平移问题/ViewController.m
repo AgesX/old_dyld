@@ -115,6 +115,45 @@ struct kc_struct{
 
 
 
+
+
+
+/*
+ 
+ 
+ struct objc_super {
+ 
+ 
+     /// Specifies an instance of a class.
+     __unsafe_unretained _Nonnull id receiver;
+
+ 
+ 
+ 
+ 
+ 
+ 
+     /// Specifies the particular superclass of the instance to message.
+
+     __unsafe_unretained _Nonnull Class super_class;
+
+ };
+
+
+ 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
 @end
 
 

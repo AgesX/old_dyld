@@ -14,21 +14,74 @@
 
 @implementation ViewController
 
-// 高地址 -> 低地址
+//     栈的趋势：
+//     高地址 -> 低地址
+
+
+
 void kcFunction(id person, id kcSel, id kcSel2){
+    
+    
+    //     内存结构为，
+    
+    //     递减，反向
+    
+    
     NSLog(@"person = %p",&person);
     NSLog(@"person = %p",&kcSel);
     NSLog(@"person = %p",&kcSel2);
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // 1: 参数 会从前往后一直压
-// 2: 结构体的属性 是怎么一个压栈情况 self superclass
+
+
+// 函数的参数
+
+
+
+
+
+// 2: 结构体的属性 是怎么一个压栈情况
+
+
+// self superclass
+
+
+
+
+
+
+
+
+
+
+
 
 struct kc_struct{
     NSNumber *num1;
     NSNumber *num2;
 } kc_struct;
+
+
+
+
+
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
