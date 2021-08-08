@@ -55,7 +55,10 @@ int main(int argc, char * argv[]) {
         
         
         
-        //
+        
+        //  会调用， objc_initWeak
+        
+        
         
         
         //  流程：    看汇编，找到入口函数，去源码里面翻
